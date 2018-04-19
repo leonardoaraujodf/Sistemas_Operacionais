@@ -1,0 +1,106 @@
+3.8 Descreva as diferenças entre agendamento de curto-prazo, médio-prazo e longo prazo.
+
+Um processo migra entre várias filas de agendamento durante seu tempo de vida. O sistema operacional deve selecionar, dentre os propósitos de agendamento, processos desseas filas de alguma forma. A seleção destes processos é realizado por um agendador apropriado. 
+
+Muitas vezes, em um sistema em lote, mais processos são enviados do que podem ser executados imediatamente. Este processos são colocados em um dispositivo de armazenamento (HD) e são mantidos para execução posterior. Um agendador de longo prazo, ou agendador de trabalho, seleciona processos destes guardados e carrega eles na memória para execução. 
+
+O agendador de curto prazo, o agendador de CPU, seleciona entre os processos que estão prontos e executa-os, alocando a CPU para um deles. 
+
+O agendador de curto prazo executa quase que frequentemente, portanto, este precisa se rápido. Já o agendador de longo prazo executa muito menos frequentemente; minutos pode separar a crição de um processo e outro.
+
+3.9 Descreva as ações tomadas pelo kernel para a mudança de contexto entre processos.
+
+Quando ocorre uma interrupção, o sistema precisa salvar o contexto atual do processo que está executando na CPU de forma que este possa ser restaurado quando o processamento for terminado, essencialmente suspendendo o processo atual e depois retornando a este.
+
+A comutação da CPU para outro processo requere que se salve o estado atual de um processo e que o estado de um processo diferente seja restaurado. Esta tarefa é conhecido como mudança de contexto. Quando uma mudança de contexto ocorre, o kernel salva o contexto do processo antigo em sua PCB e carrega o contexto do novo processo agendado para ser executado. A mudança de contexto é sobrecarga pura, pois o sistema não realiza nenhum trabalho útil durante a mudança.
+
+3.11 Explique o papel do processo 'init' nos sistemas Unix e Linux com relação a terminação de processos.
+
+O processo init é como se fosse o processo 'pai de todos', um processo 'pai root' que tem pid 1. Assim que o sistema é inicializado, o init pode criar vários processos de usuários, por exemplo, 'ssh' e 'login'. 
+
+3.12 Incluindo o processo pai, quantos processos são criados pelo programa mostrado abaixo?
+
+#include <stdio.h>
+#include <unistd.h>
+
+int main(){
+	int i;
+	for (i = 0; i < 4; i++)
+	fork();
+	}
+return 0;
+
+Na primeira iteracao (i = 0), dois processos sao criados. Na segunda (i = 1), quatro, na terceira (i = 2), oito, e na quarta (i = 4), 16 processos. Dessa forma, se tivessemos n iteracoes, 2^n processos seriam criados.
+
+3.13 Explique as circunstâncias nas quais a linha de código demarcada como printf("LINE J") na figura 3.33 será alcançada.
+
+#include <sys/types.h>
+#include <stdio.h>
+#include <unistd.h>
+int main()
+{
+	pid t pid;
+	/* fork a child process */
+	pid = fork();
+	if (pid < 0) { /* error occurred */
+		fprintf(stderr, "Fork Failed");
+		return 1;
+	}
+	else if (pid == 0) { /* child process */
+		execlp("/bin/ls","ls",NULL);
+		printf("LINE J");
+	}
+	else { /* parent process */
+		/* parent will wait for the child to complete */
+		wait(NULL);
+		printf("Child Complete");
+	}
+	}
+	return 0;
+
+Uma chamada para a função exec() vai sobrescrever o endereço do processo com um novo programa e executá-lo, de forma que não retornará a próxima linha de código a não ser que ocorra um erro na execução da função exec().
+
+3.14 Usando o programa abaixo, identifique os valores de pid nas linhas A, B, C e D. (Assuma que o valor atual dos pids do processo pai e processo filho são 2600 e 2603 respectivamente)
+
+#include <sys/types.h>
+#include <stdio.h>
+#include <unistd.h>
+int main()
+{
+	pid t pid, pid1;
+	/* fork a child process */
+	pid = fork();
+	if (pid < 0) { /* error occurred */
+		fprintf(stderr, "Fork Failed");
+		return 1;
+	}
+
+	else if (pid == 0) { /* child process */
+		pid1 = getpid();
+		printf("child: pid = %d",pid); /* A */
+		printf("child: pid1 = %d",pid1); /* B */
+	}
+	else { /* parent process */
+		pid1 = getpid();
+		printf("parent: pid = %d",pid); /* C */
+		printf("parent: pid1 = %d",pid1); /* D */
+		wait(NULL);
+	}
+}
+
+As linhas A e B só serão executadas para o processo filho. Na linha A, o valor 0 será printado, e na linha B, o valor printado será 2603, que é o pid do processo filho.
+
+As linhas C e D só serão executadas pelo processo pai. Na linha C, o valor 2603 será printado, que é o pid do processo filho, e na linha d, o valor 2600 será printado, que é o valor do processo-pai.
+
+Observação:
+
+- getpid() returns the process ID of the calling process.  (This is often used by routines that generate unique temporary filenames.)
+
+- getppid() returns the process ID of the parent of the calling process.
+
+3.15 Dê um exemplo de situação em que pipes comuns são mais adequados do que os pipes nomeados e um exemplo na qual os pipes nomeados são mais adequados do que os pipes comuns.
+
+
+
+
+ 
