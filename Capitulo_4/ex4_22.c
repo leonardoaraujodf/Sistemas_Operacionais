@@ -19,13 +19,16 @@ void *pi_finder(void *param);
 int main(int argc, char *argv[])
 {
 	double pi;
-	srand(time(NULL));
-	pthread_t tid;
-	pthread_attr_t attr;
+	pthread_t tid[3];
+	pthread_attr_t attr[3];
 
-	pthread_attr_init(&attr);
-	pthread_create(&tid, &attr, pi_finder, NULL);
-	pthread_join(tid, NULL);
+	for(i=0;i<3;i++){
+
+	pthread_attr_init(&attr[i]);
+	pthread_create(&tid[i], &attr[i], pi_finder, NULL);
+	pthread_join(tid[i], NULL);
+	
+	}
 
 	pi = (4.0*in_circle)/NUMBER_POINTS;
 	printf("Pi number is %.2lf.\n",pi);
@@ -67,6 +70,8 @@ void *pi_finder(void *param){
 		}
 
 		verify_point = sqrt(pow(point_x,2.0) + pow(point_y,2.0));
+
+
 
 		if(verify_point <= 1.0)
 			in_circle ++;
