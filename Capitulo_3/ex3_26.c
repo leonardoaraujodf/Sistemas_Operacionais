@@ -58,6 +58,8 @@ int main(int argc, char *argv[]){
 		close(fd2[READ_END]);
 
 		printf("%s\n",read_msg);
+		/*Waiting until the child finishes*/
+		wait(NULL);
 
 	}
 
