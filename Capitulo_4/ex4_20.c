@@ -37,7 +37,8 @@ void *test_pid (void *param);
 
 
 int main(){
-
+	
+	srand(time(NULL));
 	pthread_t tid[NUMBER_THREADS];
 	pthread_attr_t attr[NUMBER_THREADS];
 	int i;
@@ -63,7 +64,7 @@ int main(){
 
 void *test_pid(void *param){
 
-	srand(time(NULL));
+	
 	int my_pid = allocate_pid(), sleep_time = (rand() % 10) + 1;
 	printf("My pid is %d. Now I'm gonna sleep for %d seconds.\n", my_pid, sleep_time);
 	sleep(sleep_time);
