@@ -1,0 +1,19 @@
+Barrier created.
+My PID is -1585723648 and I will sleep for 100000 micro-seconds.
+My PID is -1577330944 and I will sleep for 100000 micro-seconds.
+My PID is -1594116352 and I will sleep for 100000 micro-seconds.
+My PID is -1602509056 and I will sleep for 100000 micro-seconds.
+My PID is -1610901760 and I will sleep for 100000 micro-seconds.
+My PID is -1619294464 and I will sleep for 100000 micro-seconds.
+My PID is -1627687168 and I will sleep for 100000 micro-seconds.
+My PID is -1636079872 and I will sleep for 100000 micro-seconds.
+My PID is -1644472576 and I will sleep for 100000 micro-seconds.
+I'm -1577330944 and I'm gonna finish now.
+I'm -1594116352 and I'm gonna finish now.
+I'm -1602509056 and I'm gonna finish now.
+I'm -1585723648 and I'm gonna finish now.
+I'm -1610901760 and I'm gonna finish now.
+I'm -1627687168 and I'm gonna finish now.
+I'm -1636079872 and I'm gonna finish now.
+I'm -1619294464 and I'm gonna finish now.
+I'm -1644472576 and I'm gonna finish now.
